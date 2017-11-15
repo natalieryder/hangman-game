@@ -2,18 +2,42 @@
 var game = {
 	//random words
 	words: [
-		"copper",
-		"explain",
-		"fated",
-		"truck",
-		"neat",
-		"unite",
-		"branch",
-		"educated",
-		"tenuous",
-		"hum",
-		"decisive",
-		"notice",
+		{
+			word: "copper",
+		},
+		{
+			word: "explain",
+		},
+		{
+			word: "fated",
+		},
+		{
+			word: "truck",
+		},
+		{
+			word: "neat",
+		},
+		{
+			word: "unite",
+		},
+		{
+			word: "branch",
+		},
+		{
+			word: "educated",
+		},
+		{
+			word: "tenuous",
+		},
+		{
+			word: "hum",
+		},
+		{
+			word: "decisive",
+		},
+		{
+			word: "notice",
+		},
 	],
 	wordToGuess:'',
 	wordLength:'',
@@ -23,15 +47,12 @@ var game = {
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	getRandomWord: function() {
 		var random = Math.floor(Math.random() * this.words.length);
-		this.wordToGuess = this.words[random];
-		this.wordLength = this.wordToGuess.length;
 		return this.words[random];
 	},
 
 	initalizeGame: function() {
-		this.getRandomWord();
-		/* for each letter add "_" to the guessProgress array */
-		for (var i = 0; i < this.wordLength; i++) {
+		this.wordToGuess = this.getRandomWord().word;
+		for (var i = 0; i < this.wordToGuess.length; i++) {
 			this.guessProgress.push("_");
 		}
 		this.showGuessProgress();
@@ -66,7 +87,7 @@ var game = {
 			/* do something here if the key is not a letter */
 		}
 	},
-
+	
 	guessWrong: function() {
 		// check if letter has been guessed whether it's in the guessedLetters array
 		if (this.guessedLetters.indexOf(this.key) === -1) {
