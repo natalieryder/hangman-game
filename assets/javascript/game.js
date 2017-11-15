@@ -40,9 +40,9 @@ var game = {
 		},
 	],
 	wordToGuess:'',
-	wordLength:'',
 	guessProgress: [],
 	guessedLetters: [],
+	guessesLeft:20,
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
@@ -54,7 +54,7 @@ var game = {
 		"<p id='guessesLeft'>20</p>";
 		this.initalizeGame();
 		document.getElementById("btn-start").style.display = "none";
-		document.getElementById("btn-quit").style.display = "block";
+		
 	},
 	getRandomWord: function() {
 		var random = Math.floor(Math.random() * this.words.length);
@@ -62,11 +62,17 @@ var game = {
 	},
 
 	initalizeGame: function() {
+		this.guessProgress = [];
+		this.guessedLetters = [];
+		this.guessesLeft = 20;
+
 		this.wordToGuess = this.getRandomWord().word;
 		for (var i = 0; i < this.wordToGuess.length; i++) {
 			this.guessProgress.push("_");
 		}
 		this.showGuessProgress();
+		document.getElementById("btn-quit").style.display = "block";
+		document.getElementById("btn-restart").style.display = "none";
 	},
 
 	showGuessProgress: function() {
@@ -74,6 +80,7 @@ var game = {
 		document.getElementById("word").innerHTML = (this.guessProgress.join(" "));
 		/* show each item of the guessedLetters array separated by a space */
 		document.getElementById("guessedLetters").innerHTML = (this.guessedLetters.join(" "));
+		document.getElementById("guessesLeft").innerHTML = (this.guessesLeft);
 	},
 
 	isGuessed: function(key, list) {
@@ -85,43 +92,41 @@ var game = {
 	},
 
 	guess: function(event) { /* event parameter required in firefox */
-		this.key = String.fromCharCode(event.keyCode).toLowerCase();
+		var key = String.fromCharCode(event.keyCode).toLowerCase();
 
 		// Doesn't work in firefox
 		// this.key = event.key; 
 
-		if (!this.isLetter(this.key)) {
+		if (!this.isLetter(key)) {
 			// alert("That\'s not a letter!")
 			return;
 		}
-		if (this.isGuessed(this.key, this.guessedLetters)) {
+		if (this.isGuessed(key, this.guessedLetters)) {
 			// alert("You already guessed that!")
 			return;
 		}
-		if (this.wordToGuess.indexOf(this.key) === -1) {
-			this.guessWrong();
+		if (this.wordToGuess.indexOf(key) === -1) {
+			this.guessWrong(key, this.guessedLetters);
 		} else {
-			this.guessCorrect();
+			this.guessCorrect(key, this.wordToGuess, this.guessProgress);
 		}
 		this.showGuessProgress();
 		if (this.guessProgress.join("") === this.wordToGuess) {
 			this.win();
 		}
-  		
 	},
-	
-	guessWrong: function() {
+	guessWrong: function(key, list) {
 		// add the letter to the guessed array
-		this.guessedLetters.push(this.key);
+		list.push(key);
 		// decrement the available guesses by 1
-		document.getElementById("guessesLeft").innerHTML --;
+		this.guessesLeft --;
 	},
 
-	guessCorrect: function() {
+	guessCorrect: function(key, wordToGuess, guessProgress) {
 		// loop each letter in the wordToGuess, if it matches the guess, add it to guessProgress at the same index
-		for (var i = 0; i < this.wordToGuess.length; i ++) {
-			if (this.wordToGuess[i] === this.key) {
-				this.guessProgress[i] = this.key;
+		for (var i = 0; i < wordToGuess.length; i ++) {
+			if (wordToGuess[i] === key) {
+				guessProgress[i] = key;
 			}
 		}
 	},
@@ -136,6 +141,9 @@ window.onload = function() {
 
 	document.getElementById("btn-start").addEventListener("click", function()  {
 		game.start();
+	});
+	document.getElementById("btn-restart").addEventListener("click", function()  {
+		game.initalizeGame();
 	});
 };
 
