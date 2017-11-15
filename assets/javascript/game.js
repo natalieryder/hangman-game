@@ -45,6 +45,17 @@ var game = {
 	guessedLetters: [],
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
+	start: function() {
+		document.getElementById("game").innerHTML = 
+		"<h2 id='word'></h2>" +
+		"<p>Letters Guessed</p>" +
+		"<p id='guessedLetters'></p>" +
+		"<p>Guesses Left</p>" +
+		"<p id='guessesLeft'>20</p>";
+		this.initalizeGame();
+		document.getElementById("btn-start").style.display = "none";
+		document.getElementById("btn-quit").style.display = "block";
+	},
 	getRandomWord: function() {
 		var random = Math.floor(Math.random() * this.words.length);
 		return this.words[random];
@@ -64,7 +75,7 @@ var game = {
 		/* show each item of the guessedLetters array separated by a space */
 		document.getElementById("guessedLetters").innerHTML = (this.guessedLetters.join(" "));
 	},
-	
+
 	isGuessed: function(key, list) {
 		return (list.indexOf(key) !== -1);
 	},
@@ -80,11 +91,11 @@ var game = {
 		// this.key = event.key; 
 
 		if (!this.isLetter(this.key)) {
-			/* alert user */
+			// alert("That\'s not a letter!")
 			return;
 		}
 		if (this.isGuessed(this.key, this.guessedLetters)) {
-			/* alert user */
+			// alert("You already guessed that!")
 			return;
 		}
 		if (this.wordToGuess.indexOf(this.key) === -1) {
@@ -92,7 +103,11 @@ var game = {
 		} else {
 			this.guessCorrect();
 		}
-  		this.showGuessProgress();
+		this.showGuessProgress();
+		if (this.guessProgress.join("") === this.wordToGuess) {
+			this.win();
+		}
+  		
 	},
 	
 	guessWrong: function() {
@@ -109,14 +124,24 @@ var game = {
 				this.guessProgress[i] = this.key;
 			}
 		}
+	},
+	win: function() {
+		document.getElementById("btn-quit").style.display = "none";
+		document.getElementById("btn-restart").style.display = "block";
 	}
 };
 
 window.onload = function() {
-	game.initalizeGame();
+	document.getElementById("btn-start").style.display = "block";
+
+	document.getElementById("btn-start").addEventListener("click", function()  {
+		game.start();
+	});
 };
 
 document.onkeyup = function(event) {
 	game.guess(event);
 };
+
+
 

@@ -1,0 +1,36 @@
+html, body, * {
+  font-family: "Barlow", sans-serif; }
+
+h1 {
+  color: #8E24AA;
+  font-weight: 900; }
+
+.btn {
+  margin: auto;
+  margin-top: 30px;
+  background: #8E24AA;
+  border-color: #6A1B9A;
+  color: white;
+  font-weight: 200;
+  font-family: "Barlow", sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: none; }
+  .btn:hover, .btn:focus {
+    background: #6A1B9A;
+    color: white; }
+
+#guessesLeft {
+  border: 1px solid #8E24AA;
+  padding: 5px 10px;
+  background: white;
+  font-weight: 600;
+  display: inline-block; }
+
+#guessedLetters {
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 20px; }
+
+body {
+  background: #eee; }
