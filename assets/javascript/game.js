@@ -64,6 +64,14 @@ var game = {
 		/* show each item of the guessedLetters array separated by a space */
 		document.getElementById("guessedLetters").innerHTML = (this.guessedLetters.join(" "));
 	},
+	
+	isGuessed: function(key, list) {
+		return (list.indexOf(key) !== -1);
+	},
+
+	isLetter: function(str) {
+		return str.length === 1 && str.match(/[a-z]/i);
+	},
 
 	guess: function(event) { /* event parameter required in firefox */
 		this.key = String.fromCharCode(event.keyCode).toLowerCase();
@@ -71,33 +79,27 @@ var game = {
 		// Doesn't work in firefox
 		// this.key = event.key; 
 
-		var isLetter = function(str) {
-		  return str.length === 1 && str.match(/[a-z]/i);
-		};
-
-		if (isLetter(this.key)) {
-			/* check if the letter is in the word */
-			if (this.wordToGuess.indexOf(this.key) === -1) {
-				this.guessWrong();
-			} else {
-				this.guessCorrect();
-			}
-	  		this.showGuessProgress();
-		} else {
-			/* do something here if the key is not a letter */
+		if (!this.isLetter(this.key)) {
+			/* alert user */
+			return;
 		}
+		if (this.isGuessed(this.key, this.guessedLetters)) {
+			/* alert user */
+			return;
+		}
+		if (this.wordToGuess.indexOf(this.key) === -1) {
+			this.guessWrong();
+		} else {
+			this.guessCorrect();
+		}
+  		this.showGuessProgress();
 	},
 	
 	guessWrong: function() {
-		// check if letter has been guessed whether it's in the guessedLetters array
-		if (this.guessedLetters.indexOf(this.key) === -1) {
-			// add the letter to the guessed array
-			this.guessedLetters.push(this.key);
-			// decrement the available guesses by 1
-			document.getElementById("guessesLeft").innerHTML --;
-		} else {
-			/* do something if repeat guess */
-		}
+		// add the letter to the guessed array
+		this.guessedLetters.push(this.key);
+		// decrement the available guesses by 1
+		document.getElementById("guessesLeft").innerHTML --;
 	},
 
 	guessCorrect: function() {
