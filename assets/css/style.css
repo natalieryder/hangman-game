@@ -20,6 +20,9 @@ h1 {
     background: #6A1B9A;
     color: white; }
 
+#word {
+  text-transform: uppercase; }
+
 #guessesLeft {
   border: 1px solid #8E24AA;
   padding: 5px 10px;
@@ -38,8 +41,17 @@ body {
 .hidden {
   display: none; }
 
+.animation1 {
+  height: 103px; }
+
+.animation2 {
+  transform: scale(1, 0);
+  transform-origin: top;
+  animation: expandUp 1s 1s ease forwards; }
+
 .show {
   position: absolute;
+  width: 75vw;
   top: 20vh;
   left: 50vw;
   transform: translate(-50%, 0%);
@@ -53,15 +65,52 @@ body {
     .show svg.animate path {
       stroke-width: 10; }
     .show svg.animate .path {
+      stroke-dasharray: 234;
+      stroke-dashoffset: 0;
       stroke-width: 10;
       border-radius: 4px;
       stroke: #6A1B9A; }
       .show svg.animate .path.check {
         stroke-dashoffset: 234;
-        -webkit-animation: dash-check .5s 1s ease-in forwards;
-        animation: dash-check .5s 1s ease-in forwards; }
+        -webkit-animation: dash-check 1s .6s ease-in forwards;
+        animation: dash-check 1s .6s ease-in forwards; }
+  .show iframe {
+    width: 100%; }
   .show h2.success.text-animate {
     text-align: center;
     color: #8E24AA;
     font-weight: bold;
-    animation: grow .5s 1.2s ease-in-out forwards; }
+    font-size: 0px;
+    animation: grow .5s .5s ease-in-out forwards; }
+
+#word-won {
+  text-transform: uppercase;
+  font-weight: bold; }
+
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: 234; }
+  100% {
+    stroke-dashoffset: 00; } }
+
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: 234; }
+  100% {
+    stroke-dashoffset: 0; } }
+
+@keyframes grow {
+  0% {
+    font-size: 0px; }
+  60% {
+    font-size: 37px; }
+  100% {
+    font-size: 28px; } }
+
+@keyframes expandUp {
+  0% {
+    transform: scale(1, 0); }
+  60% {
+    transform: scale(1.1 0.2); }
+  100% {
+    transform: scale(1, 1); } }

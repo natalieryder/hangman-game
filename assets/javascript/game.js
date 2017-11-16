@@ -4,11 +4,12 @@ var game = {
 	words: [
 		{
 			word: "deadlift",
-			photo: "https://www.youtube.com/embed/MDuXuUg15mk",
+			video: "https://www.youtube.com/embed/MDuXuUg15mk",
 		},
-		// {
-		// 	word: "explain",
-		// },
+		{
+			word: "squat",
+			video: "https://www.youtube.com/embed/t2b8UdqmlFs",
+		},
 		// {
 		// 	word: "fated",
 		// },
@@ -47,12 +48,9 @@ var game = {
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
-		// var gameDiv = document.createElement("div");
-		// gameDiv.setAttribute("id","game");
-		// document.querySelector(".container").prepend(gameDiv);
 		document.getElementById("game").innerHTML = 
 		"<h2 id='word'></h2>" +
-		"<p>Letters Guessed</p>" +
+		"<p class='mt-5'>Letters Guessed</p>" +
 		"<p id='guessedLetters'></p>" +
 		"<p>Guesses Left</p>" +
 		"<p id='guessesLeft'>20</p>";
@@ -71,7 +69,7 @@ var game = {
 		this.guessesLeft = 20;
 		var word = this.getRandomWord();
 		this.wordToGuess = word.word;
-		this.photo = word.photo;
+		this.video = word.video;
 		for (var i = 0; i < this.wordToGuess.length; i++) {
 			this.guessProgress.push("_");
 		}
@@ -106,11 +104,11 @@ var game = {
 		// this.key = event.key; 
 
 		if (!this.isLetter(key)) {
-			// alert("That\'s not a letter!")
+	
 			return;
 		}
 		if (this.isGuessed(key, this.guessedLetters)) {
-			// alert("You already guessed that!")
+		
 			return;
 		}
 		if (this.wordToGuess.indexOf(key) === -1) {
@@ -144,14 +142,11 @@ var game = {
 		var winAlert = document.getElementById("winning");
 		winAlert.classList.add("show");
 		winAlert.classList.remove("hidden");
-		winAlert.innerHTML += "<p>you guessed " + this.wordToGuess; + "</p>"
-		winAlert.innerHTML += "<img src='" + this.photo + "'>";
 
-		var video = "<iframe width='560' height='315' src='" + this.photo + "' frameborder='0' allowfullscreen></iframe>";
+		document.getElementById("word-won").innerHTML = this.wordToGuess;
+		document.getElementById("video").setAttribute("src",this.video);
 
-		winAlert.innerHTML += video;
-		console.log(video);
-		console.log(this.photo);
+		
 
 	}
 };
@@ -164,6 +159,7 @@ window.onload = function() {
 	});
 	document.getElementById("btn-restart").addEventListener("click", function()  {
 		game.initalizeGame();
+		console.log("click");
 	});
 	document.getElementById("btn-quit").addEventListener("click", function()  {
 		game.initalizeGame();
