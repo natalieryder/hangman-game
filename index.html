@@ -13,20 +13,27 @@
 </head>
 <body>
 	
-	<div class="container text-center p-3">
+	<div id="container" class="container text-center p-3">
 		<h1 class="mb-4">Hangman</h1>
-		<div id="game"><!-- 
-			<p id="word"></p><br>
-			<p>Letters Guessed</p>
-			<p id="guessedLetters"></p><br>
-			<p>Guesses Left</p>
-			<p id="guessesLeft">20</p> --></div>
+		
+		<div id="game"></div>
 		
 		<button id="btn-start" class="btn btn-lg btn-start">Start</button>
 
-		<button id="btn-restart" class="btn btn-lg btn-start">Play Again!</button>
+		
 
 		<button id="btn-quit" class="btn btn-lg btn-start">Give Up</button>
+
+		<div id="winning" class="hidden">
+			<svg class="animate" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 54.2" style="enable-background:new 0 0 77 54.2;" >
+			
+				<polyline stroke-linejoin="round" style="fill: none;" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5" class="cls-1 path check" points="5.5,22.5 29.8,46.2 70.7,6.2 "/>
+			</svg>
+			<h2 class="success text-animate">You Win!</h2>
+
+			<button id="btn-restart" class="btn btn-lg btn-start">Play Again!</button>
+		</div>
+		
 	</div>
 <script type="text/javascript" src="./assets/javascript/game.js"></script>
 </body>

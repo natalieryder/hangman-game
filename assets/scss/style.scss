@@ -46,3 +46,77 @@ h1 {
 body {
 	background: #eee;
 }
+.hidden {
+	display: none;
+}
+.show {
+	position: absolute;
+	top:20vh;
+	left: 50vw;
+	transform: translate(-50%, 0%);
+	background: white;
+	border: 1px solid $purple;
+	padding: 30px;
+	svg.animate {
+	  width: 100px;
+	  display: block;
+	  margin: auto;
+	  path {
+	    stroke-width: 10;
+	  }
+	  .path {
+	      // stroke-dasharray: 234;
+	      // stroke-dashoffset: 0;
+	        stroke-width: 10;
+	        border-radius: 4px;
+	        stroke: $dpurple;
+	      
+	      &.check {
+	        stroke-dashoffset: 234;
+	        -webkit-animation: dash-check .5s 1s ease-in forwards;
+	        animation: dash-check .5s 1s ease-in forwards;
+	      }
+	    }
+	}
+	h2.success.text-animate {
+	  text-align: center;
+	  color: $purple;
+	  font-weight: bold;
+	  // transform: scale(0);
+	  // font-size: 0px;
+	  animation: grow .5s 1.2s ease-in-out forwards;
+	}
+}
+
+// @-webkit-keyframes dash-check {
+//   0% {
+//     stroke-dashoffset: 234;
+//   }
+//   100% {
+//     stroke-dashoffset: 00;
+//   }
+// }
+
+// @keyframes dash-check {
+//   0% {
+//     stroke-dashoffset: 234;
+//   }
+//   100% {
+//     stroke-dashoffset: 0;
+//   }
+// }
+
+// @keyframes grow {
+//   0% {
+//     // transform:scale(0);
+//     font-size: 0px;
+//   }
+//   60% {
+//    // transform:scale(1.2);
+//    font-size: 37px;
+//   }
+//   100% {
+//     // transform:scale(1);
+//     font-size:  28px;
+//   }
+// }

@@ -3,41 +3,42 @@ var game = {
 	//random words
 	words: [
 		{
-			word: "copper",
+			word: "deadlift",
+			photo: "https://www.youtube.com/embed/MDuXuUg15mk",
 		},
-		{
-			word: "explain",
-		},
-		{
-			word: "fated",
-		},
-		{
-			word: "truck",
-		},
-		{
-			word: "neat",
-		},
-		{
-			word: "unite",
-		},
-		{
-			word: "branch",
-		},
-		{
-			word: "educated",
-		},
-		{
-			word: "tenuous",
-		},
-		{
-			word: "hum",
-		},
-		{
-			word: "decisive",
-		},
-		{
-			word: "notice",
-		},
+		// {
+		// 	word: "explain",
+		// },
+		// {
+		// 	word: "fated",
+		// },
+		// {
+		// 	word: "truck",
+		// },
+		// {
+		// 	word: "neat",
+		// },
+		// {
+		// 	word: "unite",
+		// },
+		// {
+		// 	word: "branch",
+		// },
+		// {
+		// 	word: "educated",
+		// },
+		// {
+		// 	word: "tenuous",
+		// },
+		// {
+		// 	word: "hum",
+		// },
+		// {
+		// 	word: "decisive",
+		// },
+		// {
+		// 	word: "notice",
+		// },
 	],
 	wordToGuess:'',
 	guessProgress: [],
@@ -46,6 +47,9 @@ var game = {
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
+		// var gameDiv = document.createElement("div");
+		// gameDiv.setAttribute("id","game");
+		// document.querySelector(".container").prepend(gameDiv);
 		document.getElementById("game").innerHTML = 
 		"<h2 id='word'></h2>" +
 		"<p>Letters Guessed</p>" +
@@ -65,14 +69,17 @@ var game = {
 		this.guessProgress = [];
 		this.guessedLetters = [];
 		this.guessesLeft = 20;
-
-		this.wordToGuess = this.getRandomWord().word;
+		var word = this.getRandomWord();
+		this.wordToGuess = word.word;
+		this.photo = word.photo;
 		for (var i = 0; i < this.wordToGuess.length; i++) {
 			this.guessProgress.push("_");
 		}
 		this.showGuessProgress();
 		document.getElementById("btn-quit").style.display = "block";
-		document.getElementById("btn-restart").style.display = "none";
+		// document.getElementById("btn-restart").style.display = "none";
+		document.getElementById("winning").classList.remove('show');
+		document.getElementById("winning").classList.add("hidden");
 	},
 
 	showGuessProgress: function() {
@@ -80,6 +87,7 @@ var game = {
 		document.getElementById("word").innerHTML = (this.guessProgress.join(" "));
 		/* show each item of the guessedLetters array separated by a space */
 		document.getElementById("guessedLetters").innerHTML = (this.guessedLetters.join(" "));
+
 		document.getElementById("guessesLeft").innerHTML = (this.guessesLeft);
 	},
 
@@ -133,6 +141,18 @@ var game = {
 	win: function() {
 		document.getElementById("btn-quit").style.display = "none";
 		document.getElementById("btn-restart").style.display = "block";
+		var winAlert = document.getElementById("winning");
+		winAlert.classList.add("show");
+		winAlert.classList.remove("hidden");
+		winAlert.innerHTML += "<p>you guessed " + this.wordToGuess; + "</p>"
+		winAlert.innerHTML += "<img src='" + this.photo + "'>";
+
+		var video = "<iframe width='560' height='315' src='" + this.photo + "' frameborder='0' allowfullscreen></iframe>";
+
+		winAlert.innerHTML += video;
+		console.log(video);
+		console.log(this.photo);
+
 	}
 };
 
@@ -143,6 +163,9 @@ window.onload = function() {
 		game.start();
 	});
 	document.getElementById("btn-restart").addEventListener("click", function()  {
+		game.initalizeGame();
+	});
+	document.getElementById("btn-quit").addEventListener("click", function()  {
 		game.initalizeGame();
 	});
 };
