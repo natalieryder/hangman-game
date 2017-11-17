@@ -1,6 +1,13 @@
 html, body, * {
   font-family: "Barlow", sans-serif; }
 
+.wins {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  text-align: center; }
+
 h1 {
   color: #8E24AA;
   font-weight: 900; }
@@ -19,6 +26,21 @@ h1 {
   .btn:hover, .btn:focus {
     background: #6A1B9A;
     color: white; }
+
+#error {
+  opacity: 0;
+  position: absolute;
+  background: white;
+  padding: 20px;
+  top: 200px;
+  left: 50vw;
+  color: #ef5350;
+  border: 1px solid #ef5350;
+  transform: translate(-50%, 0%);
+  transition: opacity .5s ease-out; }
+  #error.error-show {
+    opacity: 1;
+    transition: opacity .5s ease-in; }
 
 .btn-restart {
   display: block; }
@@ -50,7 +72,7 @@ body {
 .animation2 {
   transform: scale(1, 0);
   transform-origin: top;
-  animation: expandUp 1s 1s ease forwards; }
+  animation: expandUp .5s 1s ease forwards; }
 
 .show {
   position: absolute;

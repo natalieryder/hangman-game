@@ -6,7 +6,7 @@ var game = {
 	//random words
 	words: [
 		{
-			word: "DEAdlift",
+			word: "deadlift",
 			video: "https://www.youtube.com/embed/MDuXuUg15mk",
 			works:  [
 				"Gluteus Maximus",
@@ -16,8 +16,7 @@ var game = {
 				"Hamstrings",
 				"Gastrocnemius",
 				"Erector Spinae",
-				"Trapezius, upper",
-				"Trapezius, middle",
+				"Trapezius",
 				"Levator Scapulae",
 				"Rhomboids",
 				"Rectus Abdominis",
@@ -25,7 +24,7 @@ var game = {
 			]
 		},
 		{
-			word: "BACK squat",
+			word: "back squat",
 			video: "https://www.youtube.com/embed/t2b8UdqmlFs",
 			works: [
 				"Quadriceps",
@@ -34,7 +33,7 @@ var game = {
 			]
 		},
 		{
-			word: "CABLE pull through",
+			word: "cable pull-through",
 			video: "https://youtube.com/embed/0VEomRR3HCw",
 			works: [
 				"Gluteus Maximus",
@@ -51,17 +50,55 @@ var game = {
 				"Latissimus Dorsi"
 				]
 		},
-		{	word: "&)p&%)@$#",
-			video: "https://youtube.com/embed/BGhtifoO9Vw",
+		{	word: "Hip Thrust",
+			video: "https://www.youtube.com/embed/LM8XHLYJoYs",
 			works: [
-				"Pectoralis Major",
-				"Deltoids",
-				"Triceps",
-				"Biceps",
-				"Latissimus Dorsi"
-				]
-		},
+				"Gluteus Maximus"
+			]
 
+		},
+		{	word: "hanging leg raise",
+			video: "https://www.youtube.com/embed/G0ysNevIv0w",
+			works: [
+				"Latissimus Dorsi",
+				"Abdominals",
+			]
+
+		},
+		{	word: "front squat",
+			video: "https://www.youtube.com/embed/VfBOBhwXbro",
+			works: [
+				"Quadriceps",
+				"Upper Back",
+			]
+
+		},
+		{	word: "lunge",
+			video: "https://www.youtube.com/embed/Z2n58m2i4jg",
+			works: [
+				"Quadriceps",
+				"Glutes",
+				"Hamstrings"
+			]
+		},
+		{	word: "pull up",
+			video: "https://www.youtube.com/embed/hPbZvtzgWx0",
+			works: [
+				"Latissimus Dorsi",
+				"Biceps",
+				"Abdominals",
+				"Posterior Deltoids"
+			]
+		},
+		{	word: "pull up",
+			video: "https://www.youtube.com/embed/NZGBjWRwEP0",
+			works: [
+				"Pectorals",
+				"Abdominals",
+				"Triceps",
+				"Deltoids"
+			]
+		},
 
 	],
 	on: true,
@@ -70,6 +107,7 @@ var game = {
 	guessProgress: [],
 	guessedLetters: [],
 	guessesLeft:5,
+	wins: 0,
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
@@ -85,6 +123,10 @@ var game = {
 
 	getRandomWord: function(array) {
 		var random = Math.floor(Math.random() * array.length);
+		/* removes the word from the array when it is grabbed, but breaks when it runs out */
+		// var randomword = array[random];
+		// array.splice(random,1);
+		// return randomword;
 		return array[random];
 	},
 
@@ -141,7 +183,12 @@ var game = {
 	isLetter: function(str) {
 		return str.length === 1 && str.match(/[a-z]/i);
 	},
-
+	showError: function(message) {
+		var error = document.getElementById("error");
+		error.innerHTML = message;
+		error.classList.add("error-show");
+		setTimeout(function(){error.classList.remove("error-show");}, 2000);
+	},
 	guess: function(event) { /* event parameter required in firefox */
 		if (!this.on) {
 			return;
@@ -152,9 +199,12 @@ var game = {
 		// this.key = event.key; 
 
 		if (!this.isLetter(key)) {
+			this.showError("That's not a letter!");
 			return;
+
 		}
-		if (this.isGuessed(key, this.guessedLetters)) {
+		if (this.isGuessed(key, this.guessedLetters) || this.isGuessed(key, this.guessProgress)) {
+			this.showError("You guessed \"" + key + "\" already");
 			return;
 		}
 		if (this.wordToGuess.indexOf(key) === -1) {
@@ -192,6 +242,8 @@ var game = {
 	},
 	win: function() {
 		game.on = false;
+		game.wins++;
+		document.getElementById("wins").innerHTML = game.wins;
 		document.getElementById("btn-quit").style.display = "none";
 		// document.getElementsByClassName("btn-restart").style.display = "block";
 		var winAlert = document.getElementById("winning");
@@ -248,12 +300,14 @@ window.onload = function() {
 		game.initalizeGame();
 	});
 	document.getElementById("btn-quit").addEventListener("click", function()  {
-		// alert("hah, I stumped you! The answer is \"" + game.wordToGuess + "\". Try another one!");
+		game.on = false;
+		alert("hah, I stumped you! The answer is \"" + game.wordToGuess + "\". Try another one!");
 		game.initalizeGame();
 	});
 };
 
 document.onkeyup = function(event) {
+
 	game.guess(event);
 };
 

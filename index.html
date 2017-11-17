@@ -2,24 +2,29 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="/assets/css/reset.css">
+	<link rel="stylesheet" href="./assets/css/reset.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	
-	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
 
 	<link href="https://fonts.googleapis.com/css?family=Barlow:200,400,700,900" rel="stylesheet">
 
 	<title>Hangman Game</title>
 </head>
 <body>
-	
+	<div class="wins">
+		<h2>Wins:</h2>
+		<h1 id="wins">0</h1>
+	</div>
 	<div id="container" class="container text-center p-3">
-		<h1 class="mb-4">Hangman</h1>
+		<h1 class="mb-4">Do you even lift, bro?</h1>
 		
 		<div id="game"></div>
+
+		<p id="error"></p>
 		
 		<button id="btn-start" class="btn btn-lg btn-start">Start</button>
-
+		
 		<button id="btn-quit" class="btn btn-lg btn-start">Give Up</button>
 
 		<div id="winning" class="hidden">
@@ -33,7 +38,7 @@
 
 			<div class="animation2">
 				<p>You guessed <span class="wordend"></span></p>
-				<p>One muscle this works is the <span id="works"></span></p>
+				<p>This excercize works the <span id="works"></span>, among other things!</p>
 				<div class="embed-responsive-16by9 embed-responsive video-container">
 					<iframe class="embed-responsive-item" id="video" src="" frameborder='0'></iframe>
 				</div>
