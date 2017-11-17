@@ -90,7 +90,7 @@ body {
     font-size: 0px;
     animation: grow .5s .5s ease-in-out forwards; }
 
-.wordend {
+.wordend, #works {
   text-transform: uppercase;
   font-weight: bold; }
 

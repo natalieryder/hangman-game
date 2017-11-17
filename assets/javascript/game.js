@@ -1,34 +1,55 @@
 // debugger;
+// remove item after it's been guessed
+// count how many wins and losses
+
 var game = {
 	//random words
 	words: [
 		{
 			word: "deadlift",
 			video: "https://www.youtube.com/embed/MDuXuUg15mk",
-			works:  ["Gluteus Maximus: (Butt)",
-					"Quadriceps: (Upper Front legs)",
-					"Adductor Magnus: (Inner Thigh)",
-					"Soleus: (Smaller part of your calf muscle)",
-					"Hamstrings: (Upper back of legs)",
-					"Gastrocnemius: (bigger part of your calf muscle)",
-					"Erector Spinae: (lower back)",
-					"Trapezius, upper: (upper neck muscles)",
-					"Trapezius, middle: (middle neck muscles)",
-					"Levator Scapulae: (the muscle from your jaw to your shoulder)",
-					"Rhomboids:  ( upper inner back muscles right below your neck)",
-					"Rectus Abdominis: (abs)",
-					"Obliques: (side abs)"]
+			works:  [
+				"Gluteus Maximus",
+				"Quadriceps",
+				"Adductor Magnus",
+				"Soleus",
+				"Hamstrings",
+				"Gastrocnemius",
+				"Erector Spinae",
+				"Trapezius, upper",
+				"Trapezius, middle",
+				"Levator Scapulae",
+				"Rhomboids",
+				"Rectus Abdominis",
+				"Obliques"
+			]
 		},
 		{
 			word: "back squat",
 			video: "https://www.youtube.com/embed/t2b8UdqmlFs",
+			works: [
+				"Quadriceps",
+				"Gluteus Maximus",
+				"Adductor Magnus",
+			]
 		},
 		{
 			word: "cable pull through",
 			video: "https://youtube.com/embed/0VEomRR3HCw",
+			works: [
+				"Gluteus Maximus",
+				"Hamstrings"
+			]
 		},
 		{	word: "bench press",
 			video: "https://youtube.com/embed/BGhtifoO9Vw",
+			works: [
+				"Pectoralis Major",
+				"Deltoids",
+				"Triceps",
+				"Biceps",
+				"Latissimus Dorsi"
+				]
 		},
 	],
 	on: true,
@@ -50,9 +71,9 @@ var game = {
 		document.getElementById("btn-start").style.display = "none";
 	},
 
-	getRandomWord: function() {
-		var random = Math.floor(Math.random() * this.words.length);
-		return this.words[random];
+	getRandomWord: function(array) {
+		var random = Math.floor(Math.random() * array.length);
+		return array[random];
 	},
 
 	initalizeGame: function() {
@@ -62,9 +83,10 @@ var game = {
 		this.guessProgress = [];
 		this.guessedLetters = [];
 		this.guessesLeft = 5;
-		var word = this.getRandomWord();
+		var word = this.getRandomWord(this.words);
 		this.wordToGuess = word.word;
 		this.video = word.video;
+		this.works = word.works;
 
 		for (var i = 0; i < this.wordToGuess.length; i++) {
 			if (this.wordToGuess[i] === " ") {
@@ -89,9 +111,10 @@ var game = {
 		document.getElementById("word").innerHTML = (this.guessProgress.join("&nbsp;"));
 		/* show each item of the guessedLetters array separated by a space */
 		document.getElementById("guessedLetters").innerHTML = (this.guessedLetters.join("&nbsp;"));
-
+		/* show how many guesses are left */
 		document.getElementById("guessesLeft").innerHTML = (this.guessesLeft);
-// console.log("showGuessProgress")
+
+
 	},
 
 	isGuessed: function(key, guessedLetters) {
@@ -159,6 +182,8 @@ var game = {
 		winAlert.classList.remove("hidden");
 		document.getElementsByClassName("word-end").innerHTML = this.wordToGuess;
 		document.getElementById("video").setAttribute("src",this.video);
+		document.getElementById("works").innerHTML = this.getRandomWord(this.works);
+
 
 
 		this.showAnswer();
