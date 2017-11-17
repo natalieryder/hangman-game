@@ -6,7 +6,7 @@ var game = {
 	//random words
 	words: [
 		{
-			word: "deadlift",
+			word: "DEAdlift",
 			video: "https://www.youtube.com/embed/MDuXuUg15mk",
 			works:  [
 				"Gluteus Maximus",
@@ -25,7 +25,7 @@ var game = {
 			]
 		},
 		{
-			word: "back squat",
+			word: "BACK squat",
 			video: "https://www.youtube.com/embed/t2b8UdqmlFs",
 			works: [
 				"Quadriceps",
@@ -34,7 +34,7 @@ var game = {
 			]
 		},
 		{
-			word: "cable pull through",
+			word: "CABLE pull through",
 			video: "https://youtube.com/embed/0VEomRR3HCw",
 			works: [
 				"Gluteus Maximus",
@@ -51,6 +51,18 @@ var game = {
 				"Latissimus Dorsi"
 				]
 		},
+		{	word: "&)p&%)@$#",
+			video: "https://youtube.com/embed/BGhtifoO9Vw",
+			works: [
+				"Pectoralis Major",
+				"Deltoids",
+				"Triceps",
+				"Biceps",
+				"Latissimus Dorsi"
+				]
+		},
+
+
 	],
 	on: true,
 	wordToGuess:'',
@@ -82,18 +94,23 @@ var game = {
 		game.on = true;
 		this.guessProgress = [];
 		this.guessedLetters = [];
-		this.guessesLeft = 5;
+		this.guessesLeft = 12;
 		var word = this.getRandomWord(this.words);
-		this.wordToGuess = word.word;
+		this.wordToGuess = word.word.toLowerCase();
 		this.video = word.video;
 		this.works = word.works;
 
 		for (var i = 0; i < this.wordToGuess.length; i++) {
-			if (this.wordToGuess[i] === " ") {
-				this.guessProgress.push(" ");
-			} else {
+			if (this.isLetter(this.wordToGuess[i])) {
 				this.guessProgress.push("_");
+			} else {
+				this.guessProgress.push(this.wordToGuess[i]);
 			}
+			// if (this.wordToGuess[i] === " ") {
+			// 	this.guessProgress.push(" ");
+			// } else {
+			// 	this.guessProgress.push("_");
+			// }
 		}
 
 		this.showGuessProgress();
@@ -184,8 +201,6 @@ var game = {
 		document.getElementById("video").setAttribute("src",this.video);
 		document.getElementById("works").innerHTML = this.getRandomWord(this.works);
 
-
-
 		this.showAnswer();
 
 	},
@@ -233,7 +248,7 @@ window.onload = function() {
 		game.initalizeGame();
 	});
 	document.getElementById("btn-quit").addEventListener("click", function()  {
-		alert("hah, I stumped you! The answer is \"" + game.wordToGuess + "\". Try another one!");
+		// alert("hah, I stumped you! The answer is \"" + game.wordToGuess + "\". Try another one!");
 		game.initalizeGame();
 	});
 };
