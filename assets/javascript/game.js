@@ -1,6 +1,6 @@
-// debugger;
 // remove item after it's been guessed
-// count how many wins and losses
+// change guesses left based on length of word
+// handle the give up button
 
 var game = {
 	//random words
@@ -106,12 +106,14 @@ var game = {
 	video: '',
 	guessProgress: [],
 	guessedLetters: [],
-	guessesLeft:5,
+	guessesLeft: '',
+	guesses:10,
 	wins: 0,
 
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
 		document.getElementById("game").innerHTML = 
+			"<p>Press A Letter Key To Guess</p>" +
 			"<h2 id='word'></h2>" +
 			"<p class='mt-5'>Letters Guessed</p>" +
 			"<p id='guessedLetters'></p>" +
@@ -123,11 +125,13 @@ var game = {
 
 	getRandomWord: function(array) {
 		var random = Math.floor(Math.random() * array.length);
+		return array[random];
+
 		/* removes the word from the array when it is grabbed, but breaks when it runs out */
 		// var randomword = array[random];
 		// array.splice(random,1);
 		// return randomword;
-		return array[random];
+
 	},
 
 	initalizeGame: function() {
@@ -136,7 +140,7 @@ var game = {
 		game.on = true;
 		this.guessProgress = [];
 		this.guessedLetters = [];
-		this.guessesLeft = 12;
+		this.guessesLeft = this.guesses;
 		var word = this.getRandomWord(this.words);
 		this.wordToGuess = word.word.toLowerCase();
 		this.video = word.video;
@@ -148,20 +152,12 @@ var game = {
 			} else {
 				this.guessProgress.push(this.wordToGuess[i]);
 			}
-			// if (this.wordToGuess[i] === " ") {
-			// 	this.guessProgress.push(" ");
-			// } else {
-			// 	this.guessProgress.push("_");
-			// }
 		}
 
 		this.showGuessProgress();
 
-
 		document.getElementById("btn-quit").style.display = "block";
-		document.getElementById("winning").classList.remove('show');
 		document.getElementById("winning").classList.add("hidden");
-		document.getElementById("losing").classList.remove('show');
 		document.getElementById("losing").classList.add("hidden");
 	},
 
@@ -245,9 +241,7 @@ var game = {
 		game.wins++;
 		document.getElementById("wins").innerHTML = game.wins;
 		document.getElementById("btn-quit").style.display = "none";
-		// document.getElementsByClassName("btn-restart").style.display = "block";
 		var winAlert = document.getElementById("winning");
-		winAlert.classList.add("show");
 		winAlert.classList.remove("hidden");
 		document.getElementsByClassName("word-end").innerHTML = this.wordToGuess;
 		document.getElementById("video").setAttribute("src",this.video);
@@ -260,7 +254,6 @@ var game = {
 	lose: function() {
 		game.on = false;
 		var loseAlert = document.getElementById("losing");
-		loseAlert.classList.add("show"); // show the lose screnn
 		loseAlert.classList.remove("hidden");
 		document.getElementById("btn-quit").style.display = "none"; //hide the quit button
 		this.showAnswer();
@@ -307,7 +300,6 @@ window.onload = function() {
 };
 
 document.onkeyup = function(event) {
-
 	game.guess(event);
 };
 

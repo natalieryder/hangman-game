@@ -1,6 +1,16 @@
 html, body, * {
   font-family: "Barlow", sans-serif; }
 
+body {
+  background: #eee; }
+
+h1 {
+  color: #8E24AA;
+  font-weight: 900; }
+
+.hidden {
+  display: none; }
+
 .wins {
   position: absolute;
   top: 0;
@@ -8,9 +18,20 @@ html, body, * {
   padding: 10px;
   text-align: center; }
 
-h1 {
-  color: #8E24AA;
-  font-weight: 900; }
+#word {
+  text-transform: uppercase; }
+
+#guessedLetters {
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 20px; }
+
+#guessesLeft {
+  border: 1px solid #8E24AA;
+  padding: 5px 10px;
+  background: white;
+  font-weight: 600;
+  display: inline-block; }
 
 .btn {
   margin: auto;
@@ -25,46 +46,30 @@ h1 {
   display: none; }
   .btn:hover, .btn:focus {
     background: #6A1B9A;
-    color: white; }
+    color: white;
+    outline: 0;
+    -webkit-outline: 0;
+    box-shadow: none; }
+
+.btn-restart {
+  display: block; }
 
 #error {
   opacity: 0;
   position: absolute;
   background: white;
   padding: 20px;
-  top: 200px;
-  left: 50vw;
-  color: #ef5350;
-  border: 1px solid #ef5350;
-  transform: translate(-50%, 0%);
-  transition: opacity .5s ease-out; }
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  background: #ef5350;
+  border: 2px solid #d32f2f;
+  transition: opacity .3s ease-out; }
   #error.error-show {
     opacity: 1;
-    transition: opacity .5s ease-in; }
-
-.btn-restart {
-  display: block; }
-
-#word {
-  text-transform: uppercase; }
-
-#guessesLeft {
-  border: 1px solid #8E24AA;
-  padding: 5px 10px;
-  background: white;
-  font-weight: 600;
-  display: inline-block; }
-
-#guessedLetters {
-  letter-spacing: 3px;
-  font-weight: 600;
-  font-size: 20px; }
-
-body {
-  background: #eee; }
-
-.hidden {
-  display: none; }
+    transition: opacity .3s ease-in; }
 
 .animation1 {
   height: 103px; }
@@ -74,7 +79,7 @@ body {
   transform-origin: top;
   animation: expandUp .5s 1s ease forwards; }
 
-.show {
+#winning, #losing {
   position: absolute;
   width: 75vw;
   top: 50vh;
@@ -84,37 +89,40 @@ body {
   border: 1px solid #8E24AA;
   padding: 30px;
   box-shadow: 3px 5px 8px rgba(85, 85, 85, 0.1); }
-  .show svg.animate {
-    width: 100px;
-    display: block;
-    margin: auto; }
-    .show svg.animate path {
-      stroke-width: 10; }
-    .show svg.animate .path {
-      stroke-dasharray: 234;
-      stroke-dashoffset: 0;
-      stroke-width: 10;
-      border-radius: 4px;
-      stroke: #6A1B9A; }
-      .show svg.animate .path.check {
-        stroke-dashoffset: 234;
-        -webkit-animation: dash-check 1s .6s ease-in forwards;
-        animation: dash-check 1s .6s ease-in forwards; }
-  .show .video-container {
-    max-width: 500px;
-    margin: auto; }
-  .show iframe {
-    width: 100%; }
-  .show h2.success.text-animate {
-    text-align: center;
-    color: #8E24AA;
-    font-weight: bold;
-    font-size: 0px;
-    animation: grow .5s .5s ease-in-out forwards; }
+  #winning .wordend, #winning #works, #losing .wordend, #losing #works {
+    text-transform: uppercase;
+    font-weight: bold; }
 
-.wordend, #works {
-  text-transform: uppercase;
-  font-weight: bold; }
+#winning svg.animate {
+  width: 100px;
+  display: block;
+  margin: auto; }
+  #winning svg.animate path {
+    stroke-width: 10; }
+  #winning svg.animate .path {
+    stroke-dasharray: 234;
+    stroke-dashoffset: 0;
+    stroke-width: 10;
+    border-radius: 4px;
+    stroke: #6A1B9A; }
+    #winning svg.animate .path.check {
+      stroke-dashoffset: 234;
+      -webkit-animation: dash-check 1s .6s ease-in forwards;
+      animation: dash-check 1s .6s ease-in forwards; }
+
+#winning .video-container {
+  max-width: 500px;
+  margin: auto; }
+
+#winning iframe {
+  width: 100%; }
+
+#winning h2.success.text-animate {
+  text-align: center;
+  color: #8E24AA;
+  font-weight: bold;
+  font-size: 0px;
+  animation: grow .5s .5s ease-in-out forwards; }
 
 @-webkit-keyframes dash-check {
   0% {
