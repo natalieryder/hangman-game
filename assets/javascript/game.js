@@ -113,7 +113,7 @@ var game = {
 	/* gets a random number from 0 to (the number of words - 1), returns the word at that index */
 	start: function() {
 		document.getElementById("game").innerHTML = 
-			"<p>Press A Letter Key To Guess</p>" +
+			"<p>Type Any Letter To Guess</p>" +
 			"<h2 id='word'></h2>" +
 			"<p class='mt-5'>Letters Guessed</p>" +
 			"<p id='guessedLetters'></p>" +
@@ -186,34 +186,36 @@ var game = {
 		setTimeout(function(){error.classList.remove("error-show");}, 2000);
 	},
 	guess: function(event) { /* event parameter required in firefox */
+		/* if the game isn't on, don't do anything */
 		if (!this.on) {
 			return;
 		}
+
+		/* get the key that was pressed */
 		var key = String.fromCharCode(event.keyCode).toLowerCase();
 
-		// Doesn't work in firefox
-		// this.key = event.key; 
-
+		/* check if it's a letter */
 		if (!this.isLetter(key)) {
 			this.showError("That's not a letter!");
 			return;
-
 		}
+
+		/* check if the letter has been guessed yet */
 		if (this.isGuessed(key, this.guessedLetters) || this.isGuessed(key, this.guessProgress)) {
 			this.showError("You guessed \"" + key + "\" already");
 			return;
 		}
+
+		/* check if the letter is in the word */
 		if (this.wordToGuess.indexOf(key) === -1) {
 			this.guessWrong(key, this.guessedLetters);
-			
-			
 		} else {
 			this.guessCorrect(key, this.wordToGuess, this.guessProgress);
 		}
 
 		this.showGuessProgress();
 		
-		
+		/* the win and lose conditions */
 		if (this.guessProgress.join("") === this.wordToGuess) {
 			this.win();
 		}
@@ -257,7 +259,6 @@ var game = {
 		loseAlert.classList.remove("hidden");
 		document.getElementById("btn-quit").style.display = "none"; //hide the quit button
 		this.showAnswer();
-		
 	},
 
 	showAnswer: function() {
@@ -274,7 +275,6 @@ window.onload = function() {
 	document.getElementById("btn-start").addEventListener("click", function()  {
 		game.start();
 	});
-
 
 	document.body.onclick = function(e) {   //when the document body is clicked
 	    if (window.event) {
