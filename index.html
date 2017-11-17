@@ -32,11 +32,18 @@
 			</div>
 
 			<div class="animation2">
-				<p>You guessed <span id="word-won"></span></p>
-				<iframe width='560' id="video" src="" height='315' frameborder='0'></iframe>
+				<p>You guessed <span class="wordend"></span></p>
+				<div class="embed-responsive-16by9 embed-responsive video-container">
+					<iframe class="embed-responsive-item" id="video" src="" frameborder='0'></iframe>
+				</div>
 				
-				<button id="btn-restart" class="btn btn-lg btn-start">Play Again!</button>
+				<button class="btn btn-lg btn-start btn-restart">Play Again!</button>
 			</div>
+		</div>
+		<div id="losing" class="hidden">
+			<h1> You lost </h1>
+			<p>The word was <span class="wordend"></span></p>
+			<button class="btn btn-lg btn-start btn-restart">Play Again!</button>
 		</div>
 
 	</div>

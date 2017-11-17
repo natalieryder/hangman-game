@@ -11,7 +11,7 @@ h1 {
   background: #8E24AA;
   border-color: #6A1B9A;
   color: white;
-  font-weight: 200;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
   letter-spacing: 2px;
   cursor: pointer;
@@ -19,6 +19,9 @@ h1 {
   .btn:hover, .btn:focus {
     background: #6A1B9A;
     color: white; }
+
+.btn-restart {
+  display: block; }
 
 #word {
   text-transform: uppercase; }
@@ -52,12 +55,13 @@ body {
 .show {
   position: absolute;
   width: 75vw;
-  top: 20vh;
+  top: 50vh;
   left: 50vw;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, -50%);
   background: white;
   border: 1px solid #8E24AA;
-  padding: 30px; }
+  padding: 30px;
+  box-shadow: 3px 5px 8px rgba(85, 85, 85, 0.1); }
   .show svg.animate {
     width: 100px;
     display: block;
@@ -74,6 +78,9 @@ body {
         stroke-dashoffset: 234;
         -webkit-animation: dash-check 1s .6s ease-in forwards;
         animation: dash-check 1s .6s ease-in forwards; }
+  .show .video-container {
+    max-width: 500px;
+    margin: auto; }
   .show iframe {
     width: 100%; }
   .show h2.success.text-animate {
@@ -83,7 +90,7 @@ body {
     font-size: 0px;
     animation: grow .5s .5s ease-in-out forwards; }
 
-#word-won {
+.wordend {
   text-transform: uppercase;
   font-weight: bold; }
 

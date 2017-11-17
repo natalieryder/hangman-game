@@ -17,7 +17,7 @@ h1 {
 	background: $purple;
 	border-color: $dpurple;
 	color: white;
-	font-weight: 200;
+	font-weight: 400;
 	font-family: $font;
 	letter-spacing: 2px;
 	cursor: pointer;
@@ -26,6 +26,10 @@ h1 {
 		background: $dpurple;
 		color: white;
 	}
+}
+
+.btn-restart {
+	display: block;
 }
 #word {
 	text-transform: uppercase;
@@ -66,12 +70,13 @@ body {
 .show {
 	position: absolute;
 	width: 75vw;
-	top:20vh;
+	top:50vh;
 	left: 50vw;
-	transform: translate(-50%, 0%);
+	transform: translate(-50%, -50%);
 	background: white;
 	border: 1px solid $purple;
 	padding: 30px;
+	box-shadow: 3px 5px 8px rgba(#555, .1);
 	svg.animate {
 	  width: 100px;
 	  display: block;
@@ -93,6 +98,10 @@ body {
 	      }
 	    }
 	}
+	.video-container {
+		max-width: 500px;
+		margin:auto;
+	}
 	iframe {
 		width: 100%;
 	}
@@ -105,7 +114,7 @@ body {
 	  animation: grow .5s .5s ease-in-out forwards;
 	}
 }
-#word-won {
+.wordend {
 	text-transform: uppercase;
 	font-weight: bold;
 }
